@@ -67,18 +67,10 @@ bool StrStartWith(const char *str, const char *pre) {
 void UsageMessage(const char *command) {
   std::cout << "Usage: " << command << " [options]" << std::endl;
   std::cout << "Options:" << std::endl;
-  std::cout << "  -threads n: execute using n threads (default: 1)"
+  std::cout << "  -workload n: Select a workload (default: 0)"
             << std::endl;
   std::cout
-      << "  -db dbname: specify the name of the DB to use (default: basic)"
-      << std::endl;
-  std::cout
-      << "  -P propertyfile: load properties from the given file. Multiple "
-         "files can"
-      << std::endl;
-  std::cout
-      << "                   be specified, and will be processed in the order "
-         "specified"
+      << "  -num n: Specifies the amount of data to sort (default: 1000000)"
       << std::endl;
 }
 
