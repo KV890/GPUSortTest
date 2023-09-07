@@ -14,7 +14,7 @@ size_t GPUSort1(std::vector<KeyValue>& kvs);
 size_t GPUSort2(std::vector<KeyValue>& kvs);
 
 // 使用指针并使用thrust库进行排序
-size_t GPUSort3(KeyValue* kvs, size_t num_element);
+size_t GPUSort3(KeyValue* kvs, size_t num_element, KeyValue** sorted_kvs);
 
 // 不使用thrust库进行排序，或者使用thrust库的其他方法
 size_t GPUSort4(KeyValue* kvs, size_t num_element);

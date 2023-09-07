@@ -31,7 +31,9 @@ void SortingFactory::Sort() const {
 
   auto start_time = std::chrono::high_resolution_clock::now();
 
-  GPUSort1(kvs_tmp1);
+  KeyValue* sorted_kvs;
+
+  size_t sorted_size = GPUSort3(kvs_tmp1.data(), kvs_tmp1.size(), &sorted_kvs);
 
   auto end_time = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(
@@ -39,12 +41,12 @@ void SortingFactory::Sort() const {
 
   sorting_time.emplace_back(duration.count());
 
-  std::cout << "The size after sorting: " << kvs_tmp1.size()
+  std::cout << "The size after sorting: " << sorted_size
             << ", GPU1 sort time: " << duration.count() << " us"
             << ", " << static_cast<double>(duration.count()) / 1000000 << " sec"
             << std::endl;
 
-  Assert(kvs_tmp1);
+  Assert2(sorted_kvs, sorted_size);
 
   // CPU1 算法
   std::vector<KeyValue> kvs_tmp2 = kvs;
@@ -72,6 +74,23 @@ void SortingFactory::Sort() const {
 
 void SortingFactory::Assert(std::vector<KeyValue> kvs_tmp) {
   for (size_t i = 1; i < kvs_tmp.size(); ++i) {
+    if (kvs_tmp[i - 1] < kvs_tmp[i]) {
+      // 正确
+    } else {
+      std::cerr << "Sort error!" << std::endl;
+
+      std::cerr << "last string: " << kvs_tmp[i - 1].key
+                << "sequence: " << kvs_tmp[i - 1].sequence << std::endl;
+      std::cerr << "next string: " << kvs_tmp[i].key
+                << "sequence: " << kvs_tmp[i].sequence << std::endl;
+
+      exit(1);
+    }
+  }
+}
+
+void SortingFactory::Assert2(KeyValue* kvs_tmp, size_t sorted_size) {
+  for (size_t i = 1; i < sorted_size; ++i) {
     if (kvs_tmp[i - 1] < kvs_tmp[i]) {
       // 正确
     } else {
