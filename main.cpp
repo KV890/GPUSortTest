@@ -17,7 +17,7 @@ int main(const int argc, const char *argv[]) {
 
   // 0 : db_bench, 1 : ycsb-c
   int workload_type = stoi(props.GetProperty("workload_type", "0"));
-  size_t num = std::stoull(props.GetProperty("num", "0"));
+  size_t num = std::stoull(props.GetProperty("num", "1000000"));
 
   SortingFactory sorting_factory;
   sorting_factory.kvs.reserve(num);
