@@ -17,7 +17,7 @@ int main(const int argc, const char *argv[]) {
 
   // 0 : db_bench, 1 : ycsb-c
   int workload_type = stoi(props.GetProperty("workload_type", "0"));
-  size_t num = std::stoull(props.GetProperty("num", "1000000"));
+  size_t num = std::stoull(props.GetProperty("num", "0"));
 
   SortingFactory sorting_factory;
   sorting_factory.kvs.reserve(num);
@@ -67,10 +67,18 @@ bool StrStartWith(const char *str, const char *pre) {
 void UsageMessage(const char *command) {
   std::cout << "Usage: " << command << " [options]" << std::endl;
   std::cout << "Options:" << std::endl;
-  std::cout << "  -workload n: Select a workload (default: 0)"
+  std::cout << "  -threads n: execute using n threads (default: 1)"
             << std::endl;
   std::cout
-      << "  -num n: Specifies the amount of data to sort (default: 1000000)"
+      << "  -db dbname: specify the name of the DB to use (default: basic)"
+      << std::endl;
+  std::cout
+      << "  -P propertyfile: load properties from the given file. Multiple "
+         "files can"
+      << std::endl;
+  std::cout
+      << "                   be specified, and will be processed in the order "
+         "specified"
       << std::endl;
 }
 
